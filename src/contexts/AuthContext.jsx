@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
+import { SessionUtils } from "../utils/session";
 
 const AuthContext = createContext();
 
@@ -9,28 +10,39 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const token = localStorage.getItem("token");
-    return token ? { token } : null;
+    return SessionUtils.getSession();
   });
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post("https://dummyjson.com/auth/login", {
-        username: email,
+      const loginRes = await axios.post("/product-review-api/login", {
+        email,
         password,
       });
-      const { accessToken } = response.data;
-      localStorage.setItem("token", accessToken);
-      setUser({ accessToken });
-      return true;
+      if (loginRes.status === 200) {
+        const { access_token, refresh_token } = loginRes.data;
+        const meRes = await axios.get("/product-review-api/me", {
+          headers: { Authorization: `Bearer ${access_token}` },
+        });
+        const { id, name, email } = meRes.data;
+        const session = {
+          id,
+          name,
+          email,
+          access_token,
+          refresh_token,
+        };
+        SessionUtils.setSession(session);
+        setUser(session);
+      }
     } catch (error) {
       console.error("Login failed", error);
-      return false;
+      throw error;
     }
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    SessionUtils.removeSession();
     setUser(null);
   };
 

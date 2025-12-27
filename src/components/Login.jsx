@@ -10,19 +10,25 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await login(email, password);
-    if (success) {
+    try {
+      await login(email, password);
       navigate("/");
-    } else {
-      alert("Login failed");
+    } catch (error) {
+      alert(`Login failed, ${error?.response?.data?.detail}`);
     }
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
-      <h2>Login</h2>
+    <div className="login-page">
+      <h3>Login</h3>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "4px",
+          }}
+        >
           <label>Email:</label>
           <input
             value={email}
@@ -30,7 +36,13 @@ const Login = () => {
             required
           />
         </div>
-        <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "4px",
+          }}
+        >
           <label>Password:</label>
           <input
             type="password"
@@ -39,7 +51,11 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <div style={{ display: "flex", marginTop: "12px" }}>
+          <button type="submit" style={{ marginLeft: "auto" }}>
+            Login
+          </button>
+        </div>
       </form>
     </div>
   );
