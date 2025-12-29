@@ -52,7 +52,11 @@ const Login = () => {
           />
         </div>
         <div style={{ display: "flex", marginTop: "12px" }}>
-          <button type="submit" style={{ marginLeft: "auto" }}>
+          <button
+            type="submit"
+            className="primary"
+            style={{ marginLeft: "auto" }}
+          >
             Login
           </button>
         </div>
