@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-import Login from "./components/Login";
-import MainPage from "./components/MainPage";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Login from "./pages/Login";
+import MainPage from "./pages/MainPage";
+import ProtectedRoute from "./pages/ProtectedRoute";
 import "./App.css";
 
 function App() {
