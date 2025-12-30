@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/product-review-api": {
-        target: "https://fastapi-mongodb-production-34a8.up.railway.app/api/v1",
+        target: "http://34.101.77.135:8000/api/v1",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/product-review-api/, ""),
       },

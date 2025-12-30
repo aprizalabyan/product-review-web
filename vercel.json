@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/product-review-api/:path*",
-      "destination": "https://fastapi-mongodb-production-34a8.up.railway.app/api/v1/:path*"
+      "destination": "http://34.101.77.135:8000/api/v1/:path*"
     }
   ]
 }
