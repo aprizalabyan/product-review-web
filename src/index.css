@@ -71,6 +71,15 @@ button:hover.secondary {
   border-color: #9a9ea1;
 }
 
+button.primary:disabled {
+  cursor: default;
+  color: #9a9ea1;
+  background-color: #34393d;
+}
+button.primary:disabled:hover {
+  border-color: transparent;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

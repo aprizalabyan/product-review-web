@@ -57,7 +57,7 @@
 
 .main-page .main-layout {
   display: flex;
-  gap: 12px;
+  gap: 24px;
 }
 
 .main-page .main-layout .left-section {
