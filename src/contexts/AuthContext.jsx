@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
 import { SessionUtils } from "../utils/session";
+import api from "../plugins/axios";
 
 const AuthContext = createContext();
 
@@ -41,9 +42,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    SessionUtils.removeSession();
-    setUser(null);
+  const logout = async () => {
+    try {
+      await api({
+        method: "post",
+        url: "/product-review-api/logout",
+        data: {
+          refresh_token: user.refresh_token,
+        },
+      });
+      SessionUtils.removeSession();
+      setUser(null);
+    } catch (error) {
+      console.error("Logout failed", error);
+      throw error;
+    }
   };
 
   const value = {
